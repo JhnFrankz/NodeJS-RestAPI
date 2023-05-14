@@ -38,4 +38,23 @@ export const deleteEmployee = async (req, res) => {
     res.sendStatus(204); // Todo salio bien, pero no hay contenido para devolver
 };
 
-export const updateEmployee = (req, res) => res.send('Actualizando un empleado');
+export const updateEmployee = async (req, res) => {
+    const {id} = req.params; // equivalente a const id = req.params.id;
+    const {name, salary} = req.body;
+
+
+    // El IFNULL es para que si no se envia un valor, se mantenga el valor que ya tenia
+    const [result] = await pool.query('UPDATE employee SET name = IFNULL(?, name), salary = IFNULL(?, salary) WHERE id = ?', [name, salary, id]);
+
+    console.log(result);
+
+    if (result.affectedRows == 0) return res.status(404).json({
+        message: 'Employee not found'
+    });
+
+    // Hacemos select ya que el update no devuelve nada y necesitamos los datos actualizados para devolverlos en la respuesta
+    const [rows] = await pool.query('SELECT * FROM employee WHERE id = ?', [id]);
+
+    // rows[0] porque rows es un arreglo de objetos y queremos el primer objeto
+    res.json(rows[0]);
+};

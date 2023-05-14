@@ -9,7 +9,9 @@ router.get('/employees', getEmployees);
 router.get('/employees/:id', getEmployee);
 router.post('/employees', createEmployee);
 router.delete('/employees/:id', deleteEmployee);
-router.put('/employees', updateEmployee);
+// el patch es para actualizar solo algunos campos
+// el put es para actualizar todos los campos según REST
+router.patch('/employees/:id', updateEmployee);
 
 // el export default, exporta todo lo que se encuentre en el archivo
 export default router;
