@@ -1,10 +1,12 @@
 // Nos permite crear un grupo de rutas
 import { Router } from "express";
-import { getEmployees, createEmployee, updateEmployee, deleteEmployee } from "../controllers/employees.controller.js";
+import { getEmployees, getEmployee, createEmployee, updateEmployee, deleteEmployee } from "../controllers/employees.controller.js";
 
 const router = Router();
 
 router.get('/employees', getEmployees);
+// El :id es un parametro que se puede pasar por la url gracias a express
+router.get('/employees/:id', getEmployee);
 router.post('/employees', createEmployee);
 router.put('/employees', updateEmployee);
 router.delete('/employees', deleteEmployee);
