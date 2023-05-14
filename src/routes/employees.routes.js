@@ -1,12 +1,13 @@
-import { Router } from "express";
 // Nos permite crear un grupo de rutas
+import { Router } from "express";
+import { getEmployees, createEmployee, updateEmployee, deleteEmployee } from "../controllers/employees.controller.js";
 
 const router = Router();
 
-router.get('/employees', (req, res) => res.send('Obteniendo lista de empleados'));
-router.post('/employees', (req, res) => res.send('Creando un empleado'));
-router.put('/employees', (req, res) => res.send('Actualizando un empleado'));
-router.delete('/employees', (req, res) => res.send('Eliminando un empleado'));
+router.get('/employees', getEmployees);
+router.post('/employees', createEmployee);
+router.put('/employees', updateEmployee);
+router.delete('/employees', deleteEmployee);
 
 // el export default, exporta todo lo que se encuentre en el archivo
 export default router;
