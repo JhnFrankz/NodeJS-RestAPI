@@ -1,27 +1,10 @@
-import express from 'express';
-// como es un export default, no se usa llaves y puedo usar cualquier nombre
-import employeesRoutes from './routes/employees.routes.js';
-import indexRoutes from './routes/index.routes.js';
-// se usa el .js porque se esta usando el type: module
+import app from './app.js';
+import { PORT } from './config.js';
 
-const app = express();
+app.listen(PORT);
+console.log('Server on port', PORT)
 
-// primero recibe los datos, lo convierte a json y luego lo envia a las rutas
-app.use(express.json());
-
-app.use(indexRoutes);
-app.use('/api', employeesRoutes);
-
-// Una vez pasó por todas las rutas, si busca una ruta que no existe
-// se ejecuta este middleware
-app.use((req, res, next) => {
-    res.status(404).json({
-        message: 'Endpoint not found'
-    });
-});
-
-app.listen(3000);
-console.log('Server on port', 3000)
+// Este es el archivo principal de la aplicación que arranca todo
 
 /* En src van los archivos de código fuente de la aplicación */
 /* Y el resto son archivos de configuración y funcionamiento de BD o NodeJS */
