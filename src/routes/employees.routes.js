@@ -8,8 +8,8 @@ router.get('/employees', getEmployees);
 // El :id es un parametro que se puede pasar por la url gracias a express
 router.get('/employees/:id', getEmployee);
 router.post('/employees', createEmployee);
+router.delete('/employees/:id', deleteEmployee);
 router.put('/employees', updateEmployee);
-router.delete('/employees', deleteEmployee);
 
 // el export default, exporta todo lo que se encuentre en el archivo
 export default router;

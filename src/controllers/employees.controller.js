@@ -1,14 +1,14 @@
 import { pool } from "../db.js";
 
 export const getEmployees = async (req, res) => {
-    const [rows] = await pool.query('SELECT * FROM employee'); 
+    const [rows] = await pool.query('SELECT * FROM employee');
     res.json(rows);
 };
 
 export const getEmployee = async (req, res) => {
     // rows es un arreglo de objetos con los datos de la consulta
     const [rows] = await pool.query('SELECT * FROM employee WHERE id = ?', [req.params.id]);
-    
+
     if (rows.length <= 0) return res.status(404).json({
         message: 'Employee not found'
     });
@@ -28,6 +28,14 @@ export const createEmployee = async (req, res) => {
     });
 };
 
-export const updateEmployee = (req, res) => res.send('Actualizando un empleado');
+export const deleteEmployee = async (req, res) => {
+    const [result] = await pool.query('DELETE FROM employee WHERE id = ?', [req.params.id]);
 
-export const deleteEmployee = (req, res) => res.send('Eliminando un empleado');
+    if (result.affectedRows <= 0) return res.status(404).json({
+        message: 'Employee not found'
+    });
+    
+    res.sendStatus(204); // Todo salio bien, pero no hay contenido para devolver
+};
+
+export const updateEmployee = (req, res) => res.send('Actualizando un empleado');
