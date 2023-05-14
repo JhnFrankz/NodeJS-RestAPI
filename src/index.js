@@ -6,6 +6,9 @@ import indexRoutes from './routes/index.routes.js';
 
 const app = express();
 
+// primero recibe los datos, lo convierte a json y luego lo envia a las rutas
+app.use(express.json());
+
 app.use(indexRoutes);
 app.use(employeesRoutes);
 
